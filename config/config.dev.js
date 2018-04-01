@@ -6,6 +6,7 @@ const baseWebpackConfig = require('./base.conf')
 
 
 const webpackConfig = merge(baseWebpackConfig, {
+  devtool: 'cheap-module-eval-source-map',
   watchOptions: {
     ignored: /node_modules/
   },

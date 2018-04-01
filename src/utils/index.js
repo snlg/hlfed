@@ -2,6 +2,12 @@ import createHistory from 'history/createBrowserHistory'
 
 const router = createHistory()
 
+
+const url = (api) => {
+  api += '?t=' + +new Date()
+  return api
+}
+
 const unparams = (str) => {
   let params = {}
   str = str.split('&')
@@ -14,5 +20,6 @@ const unparams = (str) => {
 
 export {
   router,
-  unparams
+  unparams,
+  url
 }

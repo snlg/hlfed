@@ -1,12 +1,12 @@
 import IndexContainer from 'containers/page'
 import UserContainer from 'containers/user'
 import UserLoginContainer from 'containers/user/login'
-import TestContainer from 'containers/test'
+import UserMobxContainer from 'containers/user/mobx'
 
 export default [
   {
     title: '首页',
-    path: '/test',
+    path: '/',
     component: IndexContainer
   },
   {
@@ -20,8 +20,8 @@ export default [
     component: UserLoginContainer
   },
   {
-    title: 'test',
-    path: '/',
-    component: TestContainer
+    title: 'mobx测试',
+    path: '/user/mobx',
+    component: UserMobxContainer
   }
 ]

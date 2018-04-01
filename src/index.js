@@ -1,28 +1,42 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-// import * as redux from 'redux'
 import AppContainer from 'containers/app'
 import userAgent from 'utils/userAgent'
 import { Router } from 'react-router-dom'
 import { router } from 'utils'
+import { Provider } from 'mobx-react'
+import stores from './store'
+import CONSTANTS from 'constants'
+import { readyWechat } from 'utils/bridgeConf'
 
-
-const render = (Component) => {
+const render = async (Component) => {
   function renderPage () {
     ReactDom.render(
-      // <Provider store={store}>
-        
-      // </Provider>,
-      <Router history={router}>
-        <Component />
-      </Router>,
+      <Provider store={stores}>
+        <Router history={router}>
+          <Component />
+        </Router>
+      </Provider>,
       document.getElementById('app'),
       () => {
         getOrder()
       }
     )
   }
-  renderPage()
+  if (!userAgent.browser.isWechatWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
+    // 微信环境并且不是小程序环境
+    await readyWechat()
+    renderPage()
+    // readyWechat(true).then(() => {
+    //   renderPage()
+    // })
+  }else {
+    ReactDom.render(
+      <div>请在微信中打开</div>,
+      document.getElementById('app'),
+      () => { }
+    )
+  }
 }
 const getOrder = () => {
   // if (!userAgent.browser.isXiaoDianWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {

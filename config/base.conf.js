@@ -19,7 +19,8 @@ module.exports = {
       containers: path.join(__dirname, '../src/containers'),
       components: path.join(__dirname, '../src/components'),
       constants: path.join(__dirname, '../src/constants'),
-      utils: path.join(__dirname, '../src/utils')
+      utils: path.join(__dirname, '../src/utils'),
+      services: path.join(__dirname, '../src/services')
     }
   },
   module: {

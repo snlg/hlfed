@@ -7,9 +7,6 @@ import { setTitle } from 'utils/bridgeApi'
 import { parseQuery } from 'utils'
 import assign from 'lodash/assign'
 import ROUTES from '../routes'
-import IndexContainer from 'containers/page'
-import TestContainer from 'containers/test'
-import UserContainer from 'containers/user'
 
 const createComponent = (component, title, path) => () => (
   <BundleComponent load={component}>
