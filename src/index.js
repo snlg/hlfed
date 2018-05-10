@@ -7,8 +7,9 @@ import { router } from 'utils'
 import { Provider } from 'mobx-react'
 import stores from './store'
 import CONSTANTS from 'constants'
-import { readyWechat } from 'utils/bridgeConf'
-
+import { getUserInfo, getWxAuth } from 'services/user'
+import { enableLogging } from 'mobx-logger'
+enableLogging()
 const render = async (Component) => {
   function renderPage () {
     ReactDom.render(
@@ -23,27 +24,31 @@ const render = async (Component) => {
       }
     )
   }
-  if (!userAgent.browser.isWechatWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
+  if (userAgent.browser.isWechatWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
     // 微信环境并且不是小程序环境
-    await readyWechat()
-    renderPage()
-    // readyWechat(true).then(() => {
-    //   renderPage()
-    // })
+    async function login() {
+      // 暂停直到获取到返回数据
+      let data = await getUserInfo()
+      if (data.success) {
+        this.props.store.getUserInfo(userInfo)
+        renderPage()
+      } else {
+        if (data.code === CONSTANTS.USER_LOGIN_STATUS_OUT) {
+          // 登录失效
+          let data = await getWxAuth()
+        }
+      }
+    }
+    login()
   }else {
     ReactDom.render(
       <div>请在微信中打开</div>,
       document.getElementById('app'),
-      () => { }
+      () => {}
     )
   }
 }
 const getOrder = () => {
-  // if (!userAgent.browser.isXiaoDianWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
-  //   window.Store.dispatch(actions.commonFetchGetOrder())
-  //   clearInterval(window.__timer)
-  //   window.__timer = setInterval(window.__orderFunc, 30000)
-  // }
     clearInterval(window.__timer)
     window.__timer = setInterval(window.__orderFunc, 30000)
 }

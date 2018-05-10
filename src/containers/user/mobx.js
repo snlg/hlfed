@@ -11,7 +11,6 @@ class IndexContainer extends Component {
   }
   render() {
     const { name } = this.props.store.UserInfoStore
-    debugger
     return (
       <div>
         {name}

@@ -32,8 +32,6 @@ const requestSuccess = (response) => {
   }
 }
 export default async (options = {}) => {
-  debugger
-  options.url = `hulai${options.url}`
   try {
     const { data } = await axios({
       timeout: 5000,

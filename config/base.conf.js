@@ -1,14 +1,16 @@
 const webpack = require('webpack')
 const path = require('path')
 const packageJson = require('../package.json')
-
+const TARGET = process.env.npm_lifecycle_event
 const HtmlWebPackPlugin = require("html-webpack-plugin")
+console.log(TARGET)
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "../public/dist"),
-    publicPath: "/",
-    chunkFilename: "[name].js",
-    filename: "[name].js"
+    path: path.resolve(__dirname, "../public/"),
+    publicPath: TARGET === 'dev:server' ? '/' : 'public/',
+    //publicPath: '/',
+    chunkFilename: '[hash].[id].chunk.js',
+    filename: "bundle.js"
   },
   // entry: {
   //   main: path.join(__dirname, '../src/index'),
@@ -57,7 +59,8 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      //filename: "./index.html"
+      filename: TARGET === 'dev:server' ? './index.html' : '../index.html',
     })
   ]
 }
