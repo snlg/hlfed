@@ -1,4 +1,4 @@
-#  黑卡H5项目
+#  H5项目
 
 
 
@@ -38,9 +38,7 @@
 
 1. 下载远程代码至本地
 
-`
-  git clone git@git.dian.so:Grace/ydhm.git
-`
+
 
 2. 安装依赖
 
@@ -88,7 +86,7 @@
       historyApiFallback: true,
       proxy: {
         "/foxDspPlat": {
-          target: 'http://60.205.169.188:8080'
+          target: 
         }
       }
     },

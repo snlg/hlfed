@@ -13,7 +13,6 @@ export default class BundleComponent extends PureComponent {
     this.setState({
       mod: null
     })
-    debugger
     props.load((mod) => {
       this.setState({
         mod: mod.default ? mod.default : mod
@@ -21,7 +20,6 @@ export default class BundleComponent extends PureComponent {
     })
   }
   render() {
-    debugger
     if (!this.state.mod) return false
     return this.props.children(this.state.mod)
   }

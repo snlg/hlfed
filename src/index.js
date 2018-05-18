@@ -24,22 +24,23 @@ const render = async (Component) => {
       }
     )
   }
-  if (userAgent.browser.isWechatWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
+  if (!userAgent.browser.isWechatWebview && window.__wxjs_environment !== CONSTANTS.MINIPROGRAM) {
     // 微信环境并且不是小程序环境
-    async function login() {
-      // 暂停直到获取到返回数据
-      let data = await getUserInfo()
-      if (data.success) {
-        this.props.store.getUserInfo(userInfo)
-        renderPage()
-      } else {
-        if (data.code === CONSTANTS.USER_LOGIN_STATUS_OUT) {
-          // 登录失效
-          let data = await getWxAuth()
-        }
-      }
-    }
-    login()
+    // async function login() {
+    //   // 暂停直到获取到返回数据
+    //   let data = await getUserInfo()
+    //   if (data.success) {
+    //     this.props.store.getUserInfo(userInfo)
+    //     renderPage()
+    //   } else {
+    //     if (data.code === CONSTANTS.USER_LOGIN_STATUS_OUT) {
+    //       // 登录失效
+    //       let data = await getWxAuth()
+    //     }
+    //   }
+    // }
+    // login()
+    renderPage()
   }else {
     ReactDom.render(
       <div>请在微信中打开</div>,
